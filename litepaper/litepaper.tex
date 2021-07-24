@@ -1,9 +1,10 @@
 \documentclass[12pt]{article}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usepackage[parfill]{parskip}
 \graphicspath{ {./images/} }
 
-\title{Limit Order Token Reserves - Tokenized Exchange Orders as Hedging Vehicles}
+\title{Limit Token Reserves - Tokenized Exchange Orders as Hedging Vehicles}
 \author{Sean Hart}
 
 \begin{document}
@@ -16,13 +17,22 @@
    \section*{Introduction}
    The advent of programmable decentralized ledgers have introduced the ability to create highly complex fungible structured products that can exist independently from their issuing organization. This contract independence allows for the creation of products with direct ownership of embedded collateral that do not require the continued existence of a solvent external entity in an enforceable jurisdiction. This unique feature combination in addition to the rise of decentralized exchanges allows for the creation of previously impossible product types, such as encapsulated and fungible pending exchange orders that automatically execute when specific criteria are reached.
 
-   Specifically, Limit Order Token Reserve (LOTR) tokens are Tokenized (encapsulated and fungible) Exchange Orders with embedded collateral used for exchange payment when the targeted asset is confirmed to have reached the limit price on a decentralized exchange. Minters of LOTRs receive two tokens, one Limit Order token representing the receiver of the target token when the limit price is reached, and one Redeem Token required to unlock the embedded collateral in the limit order \$Tokent any time before the target token limit price is reached. Both of these tokens are fungible, meaning that they can be paired with any opposing LOTR token, and therefore tradable on secondary markets. This secondary market composability allows this product to be used as a hedging or speculative vehicle, with owners selling one half of the LOTR token pair with the expectation of their half diverging in market price from their purchase price when the underlying asset price changes relative to the LOTR limit order price. The LOTR token pair halves always sum to the limit order price (the value of redeemable embedded collateral) minus transfer fees.
+   Specifically, Limit Order Token Reserve (LOTR) tokens are Tokenized (encapsulated and fungible) exchange orders with embedded collateral used for exchange payment when the targeted asset is confirmed to have reached the limit price on a decentralized exchange. Minters of LOTRs receive two tokens, one Limit Token representing the receiver of the target token when the limit price is reached, and one Redeem Token required to unlock the embedded collateral in the Limit Token any time before the target token limit price is reached. Both of these tokens are fungible, meaning that they can be paired with any opposing LOTR token, and therefore tradable on secondary markets. Although the original intent of LOTR tokens was to create modular trade strategies, this secondary market composability allows this product to be used as a hedging or speculative vehicle, with owners selling one half of the LOTR Token Pair with the expectation of their half diverging in market price from their purchase price when the underlying asset price changes relative to the LOTR limit order price. The LOTR Token Pair halves always sum to the limit order price (the value of redeemable embedded collateral) minus transfer fees.
 
-   Traders will find that the value of LOTR tokens is easier to calculate than perpetual options because they automatically execute when the asset reaches the limit order price, removing the unlimited best price problem. This automatic execution means LOTR tokens are therefore not "options". LOTRs are also more fungible than expiring options because LOTR products have one fewer variable (expiration date). Closer examination will also reveal behavioral similarities with futures contracts due to the product valuation being equal to the underlying asset price and without the requirement for a product premium payment as with options contracts.
+   Traders will find that the value of LOTR tokens is easier to calculate than perpetual options because they automatically execute when the asset reaches the limit order price, removing the unlimited best price problem. This automatic execution means LOTR tokens are therefore not "options". LOTRs are also more fungible than expiring options because LOTR products have one fewer variable (expiration date). Closer examination will also reveal behavioral similarities with futures contracts as either LOTR token half will converge with the limit price depending on the price of the target token and without the requirement for a product premium payment as with options contracts.
 
-   \section*{Usage}
-      \subsection*{Minting}
-         To be used as hedging or speculative vehicles, LOTR tokens must have a minting process that does not affect their price on the open market. Fortunately, LOTR token pairs always sum to the value of embedded collateral in the token, which is also the target price for the limit order. Therefore, any entity can set up a token smart contract that issues the LOTR token pairs and stores the ownership balances on an embedded ledger.
+      \subsection*{Component Terms}
+         \begin{itemize}{}{}
+            \item Target Token Market Price (\$Token Price)
+            \item Target Token Limit Price (Limit Price)
+            \item LOTR Limit Order Exchange Token (Limit Token)
+            \item LOTR Collateral Redemption Token (Redeem Token)
+            \item Limit Token \& Redeem Token (LOTR Token Pair)
+         \end{itemize}
+
+   \section{Usage}
+      \subsection{Minting \& Trading}
+         To be used as hedging or speculative vehicles, LOTR tokens must have a minting process that does not affect their price on the open market. Fortunately, LOTR Token Pairs always sum to the value of embedded collateral in the token, which is also the limit price for the limit order. Therefore, any entity can set up a token smart contract that issues the LOTR Token Pairs and stores the ownership balances on embedded ledgers.
          % MINTING GRAPHIC
          \begin{center}
             \begin{tikzpicture}
@@ -34,23 +44,23 @@
                % top box
                \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
                \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {LIMIT ORDER\\TOKEN CONTRACT};
-               % STABLECOIN top left
+               % collateral top left
                \draw [line width=3, blue] (1,5) circle (0.75);
                \fill [white,fill opacity=1] (1,5) circle (0.75);
-               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5) {STABLE-\\COIN};
+               \node [color=blue,align=center,font=\fontsize{5pt}{5pt}\selectfont] at (1,5) {COLLATERAL};
                % arrow right
                \draw [line width=0.5, black] (2,5) -- (2.5,5) -- (2.25,5.25) -- (2.5,5) -- (2.25,4.75);
-               % STABLECOIN top right
+               % collateral top right
                \draw [line width=3, blue] (3.5,5) circle (0.75);
                \fill [white,fill opacity=1] (3.5,5) circle (0.75);
-               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (3.5,5) {STABLE-\\COIN};
-               % Limit Order Token top right
+               \node [color=blue,align=center,font=\fontsize{5pt}{5pt}\selectfont] at (3.5,5) {COLLATERAL};
+               % Limit Token top right
                \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,5) circle (0.75);
                \fill [white,fill opacity=1] (4,5) circle (0.75);
                \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,5) {LIMIT\\ORDER\\TOKEN};
                % arrow down
                \draw [line width=0.5, black] (4,4) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
-               % Limit Order Token bottom right
+               % Limit Token bottom right
                \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,2) circle (0.75);
                \fill [white,fill opacity=1] (4,2) circle (0.75);
                \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {LIMIT\\ORDER\\TOKEN};
@@ -60,10 +70,8 @@
                \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (3,2) {REDEEM\\TOKEN};
             \end{tikzpicture}
          \end{center}
-         All tokens minted by the same contract are fungible since they share a ledger and handling functions.
 
-      \subsection*{Trading}
-         LOTR token contracts should be written in a chain-standardized format to allow composability across DeFi token protocols on the same chain. This composability allows for open market trading independent of the issuing contract. This feature is key to LOTR token halves use as hedging or speculative vehicles since token halves can be combined with various uncorrelated assets.
+         All tokens minted by the same contract are fungible since they share a ledger and handling functions.
          % TRADING GRAPHIC
          \begin{center}
             \begin{tikzpicture}
@@ -75,27 +83,27 @@
                % top box
                \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
                \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {SELLER};
-               % STABLECOIN top left
+               % payment top left
                \draw [line width=3, blue] (1,5) circle (0.75);
                \fill [white,fill opacity=1] (1,5) circle (0.75);
-               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5) {STABLE-\\COIN};
+               \node [color=blue,align=center,font=\fontsize{6pt}{6pt}\selectfont] at (1,5) {PAYMENT};
                % Redeem Token
                \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,7.5) circle (0.75);
                \fill [white,fill opacity=1] (4,7.5) circle (0.75);
                \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,7.5) {REDEEM\\TOKEN};
                % arrow down
                \draw [line width=0.5, black] (4,5) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
-               % Limit Order Token bottom right
+               % Limit Token bottom right
                \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,2) circle (0.75);
                \fill [white,fill opacity=1] (4,2) circle (0.75);
                \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {LIMIT\\ORDER\\TOKEN};
             \end{tikzpicture}
          \end{center}
 
-      \subsection*{Outcomes}
+      \subsection{Outcomes}
          LOTR tokens have two possible outcomes: redemption of the embedded collateral or execution of the limit order. Both outcomes burn the expended tokens.
-         \subsubsection*{Redemption}
-            Any holder of both LOTR token halves can choose to redeem the embedded collateral, minus transfer fees, at any time. This process is initiated by passing the Redeem \$Tokenddress to a function on the Limit Order function. This process burns the two token halves involved in the redemption function and transfers the embedded collateral ownership to the final address of both LOTR token halves used (the ownership address of both token halves must be the same).
+         \subsubsection{Redemption}
+            Any holder of both LOTR token halves can choose to redeem the embedded collateral, minus transfer fees, at any time. This process is initiated by passing the Redeem Token address to a function in the Limit Token. This process burns the two token halves involved in the redemption function and transfers the embedded collateral ownership to the final owner of the LOTR Token Pair used (the ownership address of both token halves must be the same).
             % REDEEM GRAPHIC
             \begin{center}
                \begin{tikzpicture}
@@ -108,7 +116,7 @@
                   \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,2) {REDEEM\\TOKEN};
                   % arrow up
                   \draw [line width=0.5, black] (1,3) -- (1,4.5) -- (0.75,4.25) -- (1,4.5) -- (1.25,4.25);
-                  % Limit Order Token top left
+                  % Limit Token top left
                   \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (1,5.5) circle (0.75);
                   \fill [white,fill opacity=1] (1,5.5) circle (0.75);
                   \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5.5) {LIMIT\\ORDER\\TOKEN};
@@ -119,15 +127,15 @@
                   \node [color={rgb:red,255;green,70;blue,0},align=center,font=\fontsize{8pt}{8pt}\selectfont] at (4,5.5) {BURN\\TOKENS};
                   % arrow down
                   \draw [line width=0.5, black] (4,4.5) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
-                  % STABLECOIN bottom right
+                  % collateral bottom right
                   \draw [line width=3, blue] (4,2) circle (0.75);
                   \fill [white,fill opacity=1] (4,2) circle (0.75);
-                  \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {STABLE-\\COIN};
+                  \node [color=blue,align=center,font=\fontsize{5pt}{5pt}\selectfont] at (4,2) {COLLATERAL};
                \end{tikzpicture}
             \end{center}
 
-         \subsubsection*{Execution}
-            The execution outcome is the most complicated function of the LOTR token contract. The end goal of this function is to transfer all embedded collateral to all owners of Limit Order tokens, and burn all Limit Order and Redeem Tokens for all current owners. When this function completes, all LOTR balances are zero and LOTR's balances on external token contracts (embedded collateral contracts) are also zero (it should not own any embedded collateral). This process resets the LOTR token so it can be used again until the execution function is called when the limit price is reached once again. This cycle repeats perpetually.
+         \subsubsection{Execution}
+            The execution outcome is the most complicated function of the LOTR token contract. The end goal of this function is to transfer all embedded collateral to all owners of Limit Tokens, and burn all Limit Order and Redeem Tokens for all current owners. When this function completes, this LOTR token contract's balances are zero and its balances on external token contracts (embedded collateral contracts) are also zero (it should not own any embedded collateral). This process resets the LOTR token contract so it can be used again. This cycle repeats perpetually.
 
             The execution function can be engineered to be triggered in a variety of ways. Either a centralized entity can monitor the market and trigger the function when the limit price is reached, or a decentralized incentive process can be used to encourage any on-chain actor to call the execution function and be rewarded with a cut of fees if the limit price is confirmed to have been reached.
             % EXECUTION GRAPHIC
@@ -138,7 +146,7 @@
                   \node [align=center,font=\fontsize{8pt}{8pt}\selectfont] at (1,0.75) {PRICE\\CHECKER};
                   % arrow up
                   \draw [line width=0.5, black] (1,1.75) -- (1,4.25) -- (0.75,4) -- (1,4.25) -- (1.25,4);
-                  % Limit Order Token left
+                  % Limit Token left
                   \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (1,5.25) circle (0.75);
                   \fill [white,fill opacity=1] (1,5.25) circle (0.75);
                   \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5.25) {LIMIT\\ORDER\\TOKEN};
@@ -157,10 +165,10 @@
                   % DEX box
                   \draw [line width=0.5, color=black] (3.5,4) -- (3.5,5.5) -- (5.5,5.5) -- (5.5,4) -- (3.5,4);
                   \node [color=black,align=center,font=\fontsize{8pt}{8pt}\selectfont] at (4.5,4.75) {DEX};
-                  % STABLECOIN
+                  % collateral
                   \draw [line width=3, blue] (4.5,5.75) circle (0.75);
                   \fill [white,fill opacity=1] (4.5,5.75) circle (0.75);
-                  \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4.5,5.75) {STABLE-\\COIN};
+                  \node [color=blue,align=center,font=\fontsize{5pt}{5pt}\selectfont] at (4.5,5.75) {COLLATERAL};
                   % arrow down
                   \draw [line width=0.5, black] (4.5,3.75) -- (4.5,3) -- (4.25,3.25) -- (4.5,3) -- (4.75,3.25);
                   % bottom right box
@@ -174,178 +182,222 @@
             \end{center}
             Certain advanced on-chain external contract calls are required in the execution function. First, the market price should be checked to ensure the limit price has been reached. This check should occur whether the execution function is triggered by a centralized entity or a decentralized on-chain actor. Ideally the oracle(s) used to check the market price use a variety of reporting sources to ensure accuracy. It is also recommended to use an oracle related to the exchange used in the swap process to ensure the swap occurs as close to the limit price as possible. Second, an exchange must be called to process the swap orders. Ideally the exchange is decentralized with enough liquidity to process the orders without significant price slippage.
 
-            The use of external oracles and exchanges preset opportunities for transaction failure. The execution function should include appropriate fallback procedures. Some fallback options are centralized, such as the LOTR issuer manually retrying execution, but other options are more simple such as releasing the embedded funds to Limit Order token owners to allow them to manually attempt the token swap on their own terms. Depending on the complexity of other various setups of the LOTR contract, these necessary fallback procedures can be more or less complex.
+            The use of external oracles and exchanges preset opportunities for transaction failure. The execution function should include appropriate fallback procedures. Some fallback options are centralized, such as the LOTR issuer manually retrying execution, but other options are more simple such as releasing the embedded funds to Limit Token owners to allow them to manually attempt the token swap on their own terms. Depending on the complexity of other various setups of the LOTR token contract, these necessary fallback procedures can be more or less complex.
             
             Once the limit price has been passed, the LOTR token contract should also track the new price direction of the current market (below or above the limit price). During the price check or use of a fallback procedure, the directionality is often needed to confirm the market price passed the limit price away from the previous price direction.
 
-   \section*{Example}
-      Consider an investor seeking to reduce the risk of an investment in \$Token. \$Token is currently trading at \$12 per token. The investor mints an LOTR token pair at the limit price of \$10, paying \$10 in equivalent tokens and receiving the token pair. Expense = \$10.
-      % MINTING GRAPHIC
-      \begin{center}
-         \begin{tikzpicture}
-            % bottom box
-            \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {INVESTOR};
-            % arrow up
-            \draw [line width=0.5, black] (1,2) -- (1,4) -- (0.75,3.75) -- (1,4) -- (1.25,3.75);
-            % top box
-            \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {LIMIT ORDER\\TOKEN CONTRACT};
-            % STABLECOIN top left
-            \draw [line width=3, blue] (1,5) circle (0.75);
-            \fill [white,fill opacity=1] (1,5) circle (0.75);
-            \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5) {\$10};
-            % arrow right
-            \draw [line width=0.5, black] (2,5) -- (2.5,5) -- (2.25,5.25) -- (2.5,5) -- (2.25,4.75);
-            % STABLECOIN top right
-            \draw [line width=3, blue] (3.5,5) circle (0.75);
-            \fill [white,fill opacity=1] (3.5,5) circle (0.75);
-            \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (3.5,5) {\$10};
-            % Limit Order Token top right
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,5) circle (0.75);
-            \fill [white,fill opacity=1] (4,5) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,5) {LOTR\\\$Token-10};
-            % arrow down
-            \draw [line width=0.5, black] (4,4) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
-            % Limit Order Token bottom right
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,2) circle (0.75);
-            \fill [white,fill opacity=1] (4,2) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {LOTR\\\$Token-10};
-            % Redeem Token bottom right
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (3,2) circle (0.75);
-            \fill [white,fill opacity=1] (3,2) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (3,2) {LOTR\\Redeem\\\$Token-10};
-         \end{tikzpicture}
-      \end{center}
+   \section{Examples}
+      \subsection{Hedging Example}
+         Consider an investor seeking to reduce the risk of an investment in \$Token. \$Token is currently trading at \$12 per token. The investor mints an LOTR Token Pair at the limit price of \$10, paying \$10 in collateral and receiving the Token Pair. Expense = \$10.
+         % MINTING GRAPHIC
+         \begin{center}
+            \begin{tikzpicture}
+               % bottom box
+               \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {INVESTOR};
+               % arrow up
+               \draw [line width=0.5, black] (1,2) -- (1,4) -- (0.75,3.75) -- (1,4) -- (1.25,3.75);
+               % top box
+               \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {LIMIT ORDER\\TOKEN CONTRACT};
+               % payment top left
+               \draw [line width=3, blue] (1,5) circle (0.75);
+               \fill [white,fill opacity=1] (1,5) circle (0.75);
+               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5) {\$10};
+               % arrow right
+               \draw [line width=0.5, black] (2,5) -- (2.5,5) -- (2.25,5.25) -- (2.5,5) -- (2.25,4.75);
+               % payment top right
+               \draw [line width=3, blue] (3.5,5) circle (0.75);
+               \fill [white,fill opacity=1] (3.5,5) circle (0.75);
+               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (3.5,5) {\$10};
+               % Limit Token top right
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,5) circle (0.75);
+               \fill [white,fill opacity=1] (4,5) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,5) {LOTR\\\$Token-10};
+               % arrow down
+               \draw [line width=0.5, black] (4,4) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
+               % Limit Token bottom right
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,2) circle (0.75);
+               \fill [white,fill opacity=1] (4,2) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {LOTR\\\$Token-10};
+               % Redeem Token bottom right
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (3,2) circle (0.75);
+               \fill [white,fill opacity=1] (3,2) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (3,2) {LOTR\\Redeem\\\$Token-10};
+            \end{tikzpicture}
+         \end{center}
 
-      Due to the historical volatility of \$Token, the Limit Order token is valued at \$4 and the Redeem Token is valued at \$6. This total equals the value of collateral embedded in the limit order token. The investor wants to protect their long position and profit if \$Token decreases in value in order to offset the loss on their long position. Therefore, they keep the Limit Order \$Token and sell the Redeem Token. Revenue = \$6.
-      % TRADING GRAPHIC
-      \begin{center}
-         \begin{tikzpicture}
-            % bottom box
-            \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {BUYER};
-            % arrow up
-            \draw [line width=0.5, black] (1,2) -- (1,4) -- (0.75,3.75) -- (1,4) -- (1.25,3.75);
-            % top box
-            \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {INVESTOR};
-            % STABLECOIN top left
-            \draw [line width=3, blue] (1,5) circle (0.75);
-            \fill [white,fill opacity=1] (1,5) circle (0.75);
-            \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5) {\$6};
-            % Redeem Token
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,7.5) circle (0.75);
-            \fill [white,fill opacity=1] (4,7.5) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,7.5) {LOTR\\Redeem\\\$Token-10};
-            % arrow down
-            \draw [line width=0.5, black] (4,5) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
-            % Limit Order Token bottom right
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,2) circle (0.75);
-            \fill [white,fill opacity=1] (4,2) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {LOTR\\\$Token-10};
-         \end{tikzpicture}
-      \end{center}
+         Due to the historical volatility of \$Token, the Limit Token is valued at \$4 and the Redeem Token is valued at \$6. This total equals the value of collateral embedded in the Limit Token. The investor wants to protect their long position and profit if \$Token decreases in value in order to offset the loss on their long position. Therefore, they keep the Limit Token and sell the Redeem Token. Revenue = \$6.
+         % TRADING GRAPHIC
+         \begin{center}
+            \begin{tikzpicture}
+               % bottom box
+               \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {BUYER};
+               % arrow up
+               \draw [line width=0.5, black] (1,2) -- (1,4) -- (0.75,3.75) -- (1,4) -- (1.25,3.75);
+               % top box
+               \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {INVESTOR};
+               % payment top left
+               \draw [line width=3, blue] (1,5) circle (0.75);
+               \fill [white,fill opacity=1] (1,5) circle (0.75);
+               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5) {\$6};
+               % token top right
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,7.5) circle (0.75);
+               \fill [white,fill opacity=1] (4,7.5) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,7.5) {LOTR\\\$Token-10};
+               % arrow down
+               \draw [line width=0.5, black] (4,5) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
+               % token bottom right
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,2) circle (0.75);
+               \fill [white,fill opacity=1] (4,2) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {LOTR\\Redeem\\\$Token-10};
+            \end{tikzpicture}
+         \end{center}
 
-      Over time, \$Token loses \$1 in value, now trading for \$11 per token. Because the market price is now closer to the limit order target price, based on the historical volatility of \$Token, the Limit Order token is now valued at \$6 per token. Loss = \$1, Gain = \$2. \\
+         Over time, \$Token loses \$1 in value, now trading for \$11 per token. Because the market price is now closer to the limit order target price, the Limit Token is now valued at \$6 per token. Loss = \$1, Gain = \$2. \\
 
-      The investor does not think \$Token will continue to decrease in value, so they buy back a Redeem Token for \$Token @ \$10, which is now valued at \$4 per token. Expense = \$4.
-      % TRADING GRAPHIC
-      \begin{center}
-         \begin{tikzpicture}
-            % bottom box
-            \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {SELLER};
-            % arrow down
-            \draw [line width=0.5, black] (1,5) -- (1,3) -- (.75,3.25) -- (1,3) -- (1.25,3.25);
-            % top box
-            \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {INVESTOR};
-            % STABLECOIN
-            \draw [line width=3, blue] (1,2) circle (0.75);
-            \fill [white,fill opacity=1] (1,2) circle (0.75);
-            \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,2) {\$4};
-            % Redeem Token
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,7.5) circle (0.75);
-            \fill [white,fill opacity=1] (4,7.5) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,7.5) {LOTR\\Redeem\\\$Token-10};
-            % arrow up
-            \draw [line width=0.5, black] (4,2) -- (4,4) -- (3.75,3.75) -- (4,4) -- (4.25,3.75);
-            % Limit Order Token
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,5) circle (0.75);
-            \fill [white,fill opacity=1] (4,5) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,5) {LOTR\\\$Token-10};
-         \end{tikzpicture}
-      \end{center}
+         The investor does not think \$Token will continue to decrease in value, so they buy back a Redeem Token, which is now valued at \$4 per token. Expense = \$4.
+         % TRADING GRAPHIC
+         \begin{center}
+            \begin{tikzpicture}
+               % bottom box
+               \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {SELLER};
+               % arrow down
+               \draw [line width=0.5, black] (1,5) -- (1,3) -- (.75,3.25) -- (1,3) -- (1.25,3.25);
+               % top box
+               \draw [line width=0.5, black] (0,5.5) -- (5,5.5) -- (5,7) -- (0,7) -- (0,5.5);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,6.25) {INVESTOR};
+               % payment
+               \draw [line width=3, blue] (1,2) circle (0.75);
+               \fill [white,fill opacity=1] (1,2) circle (0.75);
+               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,2) {\$4};
+               % top top Token
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,7.5) circle (0.75);
+               \fill [white,fill opacity=1] (4,7.5) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,7.5) {LOTR\\\$Token-10};
+               % arrow up
+               \draw [line width=0.5, black] (4,2) -- (4,4) -- (3.75,3.75) -- (4,4) -- (4.25,3.75);
+               % top bottom Token
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (4,5) circle (0.75);
+               \fill [white,fill opacity=1] (4,5) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,5) {LOTR\\Redeem\\\$Token-10};
+            \end{tikzpicture}
+         \end{center}
 
-      The investor redeems the LOTR collateral of \$10. Revenue = \$10.
-      % REDEEM GRAPHIC
-      \begin{center}
-         \begin{tikzpicture}
-            % bottom box
-            \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
-            \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {INVESTOR};
-            % Redeem Token bottom left
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (1,2) circle (0.75);
-            \fill [white,fill opacity=1] (1,2) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,2) {LOTR\\Redeem\\\$Token-10};
-            % arrow up
-            \draw [line width=0.5, black] (1,3) -- (1,4.5) -- (0.75,4.25) -- (1,4.5) -- (1.25,4.25);
-            % Limit Order Token top left
-            \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (1,5.5) circle (0.75);
-            \fill [white,fill opacity=1] (1,5.5) circle (0.75);
-            \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5.5) {LOTR\\\$Token-10};
-            % arrow right
-            \draw [line width=0.5, black] (2,5.5) -- (3,5.5) -- (2.75,5.75) -- (3,5.5) -- (2.75,5.25);
-            % Burn tokens box
-            \draw [line width=0.5, color={rgb:red,255;green,70;blue,0}] (3.25,4.75) -- (3.25,6.25) -- (4.75,6.25) -- (4.75,4.75) -- (3.25,4.75);
-            \node [color={rgb:red,255;green,70;blue,0},align=center,font=\fontsize{8pt}{8pt}\selectfont] at (4,5.5) {BURN\\TOKENS};
-            % arrow down
-            \draw [line width=0.5, black] (4,4.5) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
-            % STABLECOIN bottom right
-            \draw [line width=3, blue] (4,2) circle (0.75);
-            \fill [white,fill opacity=1] (4,2) circle (0.75);
-            \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {\$10};
-         \end{tikzpicture}
-      \end{center}
+         The investor redeems the LOTR collateral of \$10. Revenue = \$10.
+         % REDEEM GRAPHIC
+         \begin{center}
+            \begin{tikzpicture}
+               % bottom box
+               \draw [line width=0.5, black] (0,0) -- (5,0) -- (5,1.5) -- (0,1.5) -- (0,0);
+               \node [align=center,font=\fontsize{10pt}{10pt}\selectfont] at (2.5,0.75) {INVESTOR};
+               % Redeem Token bottom left
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (1,2) circle (0.75);
+               \fill [white,fill opacity=1] (1,2) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,2) {LOTR\\Redeem\\\$Token-10};
+               % arrow up
+               \draw [line width=0.5, black] (1,3) -- (1,4.5) -- (0.75,4.25) -- (1,4.5) -- (1.25,4.25);
+               % Limit Token top left
+               \draw [line width=3, color={rgb:red,130;green,60;blue,250}] (1,5.5) circle (0.75);
+               \fill [white,fill opacity=1] (1,5.5) circle (0.75);
+               \node [color={rgb:red,130;green,60;blue,250},align=center,font=\fontsize{7pt}{7pt}\selectfont] at (1,5.5) {LOTR\\\$Token-10};
+               % arrow right
+               \draw [line width=0.5, black] (2,5.5) -- (3,5.5) -- (2.75,5.75) -- (3,5.5) -- (2.75,5.25);
+               % Burn tokens box
+               \draw [line width=0.5, color={rgb:red,255;green,70;blue,0}] (3.25,4.75) -- (3.25,6.25) -- (4.75,6.25) -- (4.75,4.75) -- (3.25,4.75);
+               \node [color={rgb:red,255;green,70;blue,0},align=center,font=\fontsize{8pt}{8pt}\selectfont] at (4,5.5) {BURN\\TOKENS};
+               % arrow down
+               \draw [line width=0.5, black] (4,4.5) -- (4,3) -- (4.25,3.25) -- (4,3) -- (3.75,3.25);
+               % collateral bottom right
+               \draw [line width=3, blue] (4,2) circle (0.75);
+               \fill [white,fill opacity=1] (4,2) circle (0.75);
+               \node [color=blue,align=center,font=\fontsize{7pt}{7pt}\selectfont] at (4,2) {\$10};
+            \end{tikzpicture}
+         \end{center}
+         
+         The investor's account net change:
+         \begin{tabbing}
+            ~~~~ \= $-$ \= \$10 \= ~~~~ \= LOTR mint cost \\
+            \> $+$ \>\$6 \> ~~~~ \> sale of Redeem Token \\
+            \> $-$ \>\$1 \> ~~~~ \> unrealized loss in \$Token \\
+            \> $+$ \>\$2 \> ~~~~ \> value increase of Limit Token \\
+            \> $-$ \>\$4 \> ~~~~ \> repurchase of Redeem Token \\
+            \> $+$ \>\$10 \> ~~~~ \> LOTR collateral redemption \\
+            ~~~~ \par\noindent\rule{8cm}{0.4pt} \\
+            \> $+$ \>\$3 \\
+         \end{tabbing}
       
-      The investor's account net change:
-      \begin{tabbing}
-         ~~~~ \= $-$ \= \$10 \= ~~~~ \= LOTR mint cost \\
-         \> $+$ \>\$6 \> ~~~~ \> sale of Redeem Token \\
-         \> $-$ \>\$1 \> ~~~~ \> unrealized loss in \$Token \\
-         \> $+$ \>\$2 \> ~~~~ \> value increase of Limit Order token \\
-         \> $-$ \>\$4 \> ~~~~ \> repurchase of Redeem Token \\
-         \> $+$ \>\$10 \> ~~~~ \> LOTR collateral redemption \\
-         ~~~~ \par\noindent\rule{8cm}{0.4pt} \\
-         \> $+$ \>\$3 \\
-      \end{tabbing}
+      \subsection{Speculative Limit Order Example}
+         We will consider a simplified scenario with the limit order above the current market price (see section 3.2 for understanding this possibility). The current market price for \$Token is \$12 and our Limit Price is \$15. Due to the historical volatility of this token, the market values the Limit Token component at \$9. We can sell the Redeem Token for \$6. \$Token market price increases and reaches our limit price of \$15. The LOTR token contract executes an exchange swap from collateral into \$Token and transfers all resulting \$Tokens to Limit Token owners and then burns all Limit Order and Redeem Tokens for all token owners, resetting the LOTR token contract.
 
-      Including both unrealized and realized changes, the investor portfolio gains \$3 during this period rather than losing \$1. A different mix of positions using LOTRs at different limit price targets can be used to achieve a delta neutral portfolio, if desired. \\
+         \begin{tabbing}
+            ~~~~ \= $-$ \= \$15 \= ~~~~ \= LOTR mint cost \\
+            \> $+$ \>\$6 \> ~~~~ \> sale of Redeem Token \\
+            \> $+$ \>\$15 \> ~~~~ \> market value of final \$Tokens transferred after swap execution \\
+            ~~~~ \par\noindent\rule{8cm}{0.4pt} \\
+            \> $+$ \>\$6 \\
+         \end{tabbing}
+
+      Please note that fees were not considered in these examples, and can create considerable outcome differences depending on the hosting blockchain native token price, high gas limits, and other trading fees.
+
+   \section{Valuation}
+      Note: The discovery of the ideal formula describing the market valuation of LOTR tokens is ongoing. For now we will consider a generalized valuation model that represents the incomplete portion of the model with a single volatility constant ($\sigma$) that can be modified according to traders' preferences. \\
+
+      \subsection{All Conditions}
+         \begin{itemize}{}{}
+            \item \$Token Price ($T$)
+            \item \$Token volatility constant ($\sigma$)
+            \item Limit Price ($\ell$)
+            \item Limit Token Price ($t_{l}$)
+            \item Redeem Token Price ($t_{r}$)
+         \end{itemize}
+         Assuming an efficient market, an LOTR valuation formula must include these conditions (ignoring fees):
+         \begin{itemize}{}{}
+            \item $T$ and $t_{l}$ converge at $\ell$
+            \item $T$ and $t_{l}$ converge at 0
+            \item $t_{l}$ + $t_{r}$ = $\ell$
+         \end{itemize}
+
+      \subsection{Limit Orders Below Market Price}
+         \begin{center}
+            \begin{tikzpicture}
+               \draw[scale=0.5, ->] (10, 0) -- (22, 0) node[right]{$T$} node[pos=0,left]{$0$};
+               \draw[scale=0.5, ->] (10, 0) -- (10, 12) node[pos=0,below]{$\ell$};
+               \draw[scale=0.5,very thin,gray] (20,0) -- (20,12) node[pos=0,below]{$+\infty$};
+               \draw[scale=0.5,very thin,gray] (10,10) -- (22,10) node[pos=0,left]{$\ell$};
+               \draw[scale=0.5,domain=10:20,smooth,very thick,color={rgb:red,130;green,60;blue,250},variable=\x] plot({\x},{10*e^(.5*(10-\x))}) node[above,xshift=1.7cm,yshift=1.5cm]{$f(T)=\ell e^{\sigma(\ell-T)}$} node[above,xshift=1.8cm,yshift=1.2cm]{\scriptsize Limit Token Price ($t_{l}$)};
+               \draw[scale=0.5,domain=10:20,smooth,very thick,black,variable=\x] plot({\x},{10-(10*e^(.5*(10-\x)))}) node[above,xshift=2.1cm,yshift=-2cm]{$f(T)=\ell-\ell e^{\sigma(\ell-T)}$} node[above,xshift=2cm,yshift=-2.3cm]{\scriptsize Redeem Token Price ($t_{r}$)};
+               % \draw[red,label={[above]{$f(x)=x^2$}}] plot(\x,{\x^2});
+               % \draw[scale=0.5, domain=-3:3, smooth, variable=\x, blue] plot ({\x}, {\x*\x});
+               % \draw[scale=0.5, domain=-3:3, smooth, variable=\y, red]  plot ({\y*\y}, {\y});
+            \end{tikzpicture}
+         \end{center}
+         When $T$ is greater than $\ell$, as $T$ increases away from $\ell$, $t_{l}$ approaches $0$ since the chances of $T$ reaching $\ell$ in the near future diminishes. As $T$ approaches $\ell$, $t_{l}$ also approaches $\ell$ since the chances of $T$ reaching $\ell$ and executing the limit order (and receiving the value of $\ell$ minus fees) increases. $t_{r}$ follows the inverse of $t_{l}$ valuation curve, since it is always the difference between $\ell$ and $t_{l}$.
+
+      \subsection{Limit Orders Above Market Price}
+         Limit Orders above the current market price do not traditionally exist since market makers will automatically fill orders of this type. Typically a Stop Order would be placed first to prevent the broker from issuing the Limit Order to the market maker until the Stop price is reached, but the unique nature of smart contracts allows us to create seamless fungible products, and so we will call these orders simply "Limit Orders" so that the product can be perpetually referenced consistenly regardless of its current internal state.
+
+         \begin{center}
+            \begin{tikzpicture}
+               \draw[scale=0.5, ->] (0, 0) -- (12, 0) node[right]{$T$} node[pos=0,left]{$0$}; % node[below,xshift=-3cm,yshift=-0.7cm]{\$Token Price};
+               \draw[scale=0.5, ->] (0, 0) -- (0, 12) node[pos=0,below]{$0$};
+               \draw[scale=0.5,very thin,gray] (10,0) -- (10,12) node[pos=0,below]{$\ell$};
+               \draw[scale=0.5,very thin,gray] (0,10) -- (12,10) node[pos=0,left]{$\ell$};
+               \draw[scale=0.5,domain=0:10,smooth,very thick,color={rgb:red,130;green,60;blue,250},variable=\x] plot({\x},{10*e^(.5*(\x-10))}) node[above,xshift=1.7cm,yshift=-2cm]{$f(T)=\ell e^{\sigma(T-\ell)}$} node[above,xshift=1.8cm,yshift=-2.3cm]{\scriptsize Limit Token Price ($t_{l}$)};
+               \draw[scale=0.5,domain=0:10,smooth,very thick,black,variable=\x] plot({\x},{10-(10*e^(.5*(\x-10)))}) node[above,xshift=2.1cm,yshift=1.5cm]{$f(T)=\ell-\ell e^{\sigma(T-\ell)}$} node[above,xshift=2cm,yshift=1.2cm]{\scriptsize Redeem Token Price ($t_{r}$)};
+               % \draw[red,label={[above]{$f(x)=x^2$}}] plot(\x,{\x^2});
+               % \draw[scale=0.5, domain=-3:3, smooth, variable=\x, blue] plot ({\x}, {\x*\x});
+               % \draw[scale=0.5, domain=-3:3, smooth, variable=\y, red]  plot ({\y*\y}, {\y});
+            \end{tikzpicture}
+         \end{center}
+         When $T$ is between $0$ and $\ell$, as $T$ approaches $0$, $t_{l}$ also approaches $0$ since the chances of $T$ reaching $\ell$ in the near future diminishes. As $T$ approaches $\ell$, $t_{l}$ also approaches $\ell$ since the chances of $T$ reaching $\ell$ and executing the limit order (and receiving the value of $\ell$ minus fees) increases. $t_{r}$ follows the inverse of $t_{l}$ valuation curve, since it is always the difference between $\ell$ and $t_{l}$.
       
-      Please note that fees were not considered in this example, and can create considerable outcome differences depending on the hosting blockchain native token price, high gas limits, and other trading fees.
-
-   \section*{Valuation}
-      Note: The discovery of the ideal formula describing the market valuation of LOTR tokens is ongoing. Modeling of the best pricing formula consider the Black-Scholes model and Martingale pricing, among other continuously revised hedging methods in an attempt to find a delta neutral approach to valuation. This valuation methodology assumes a liquid market of regularly spaced LOTR limit tokens with no fees and zero swap slippage. \\
-
-      For now we will consider a generalized valuation model that represents the incomplete portion of the model with a single constant that can be modified according to traders' preferences.
-
-      \subsection*{Limit Orders Below Market Price}
-      \begin{center}
-      \includegraphics[scale=0.6]{graph_limit_below.png}
-      \end{center}
-      \begin{center}
-      \includegraphics[scale=0.6]{graph_redeem_below.png}
-      \end{center}
-
-      \subsection*{Limit Orders Above Market Price}
-      Limit Orders above the current market price do not traditionally exist since market makers will automatically fill orders of this type. Typically a Stop Order would be placed first to prevent the broker from issuing the Limit Order to the market maker until the Stop price is reached, but the unique nature of smart contracts allows us to create seamless fungible products, and so we will call these orders simply "Limit Orders" so that the product can be perpetually referenced consistenly regardless of its current internal state.
-
-      \begin{center}
-      \includegraphics[scale=0.6]{graph_limit_above.png}
-      \end{center}
-      \begin{center}
-      \includegraphics[scale=0.6]{graph_redeem_above.png}
-      \end{center}
+      \subsection{Ongoing research}
+         The \$Token volatility constant ($\sigma$) is inadequate as a single constant. The best pricing formula will likely utilize the historical drift rate of the market price to determine the likelihood of reaching the limit price within certain time frames.
+         
+         Additional research is needed to determine the proper allocation of LOTR assets to achieve a delta neutral portfolio. This allocation strategy will likely assume a liquid market of LOTR limit tokens priced at regular intervals with no fees and zero swap slippage.
 
 \end{document}
