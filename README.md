@@ -1,6 +1,7 @@
-# TRANCHE MODEL
+# LIMIT ORDER TOKEN RESERVE MODEL
 
 ## ENV SETUP
+
 ```
 virtualenv .lotr
 source .lotr/bin/activate
@@ -9,6 +10,7 @@ pip install jupyterlab cadCAD cadCAD_diagram matplotlib pandas plotly ipywidgets
 jupyter labextension install jupyterlab-plotly
 python -m ipykernel install --user --name=.lotr
 ```
+
 ```
 mkdir model && cd model
 touch __init__.py
@@ -23,6 +25,7 @@ touch __init__.py
 ```
 
 ## RUN
+
 ```
 jupyter-lab
 jupyter notebook [OLD]
