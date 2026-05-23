@@ -1,0 +1,15 @@
+initial_state = {
+    "target_price": 20.0,
+    "sigma": 0.75,
+    "limit_price": 10.0,
+    "limit_token_price": 0.0,
+    "redeem_token_price": 10.0,
+    "pair_value": 10.0,
+    "previous_price_direction": "above",
+    "executed": False,
+    "execution_failed": False,
+    "execution_value": 0.0,
+    "failure_reason": "",
+    "redeemed": False,
+    "redemption_value": 0.0,
+}
