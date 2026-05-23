@@ -1,0 +1,17 @@
+system_params = {
+    "limit_price": [5.0, 10.0, 15.0, 19.0],
+    "price_change_min_bp": [-500],
+    "price_change_max_bp": [500],
+    "sigma_change_min_bp": [-10],
+    "sigma_change_max_bp": [10],
+    "min_sigma": [0.10],
+    "transfer_fee_rate": [0.0],
+    "execution_reward_rate": [0.0],
+    "dex_slippage_rate": [0.0],
+    "dex_liquidity": [1_000_000.0],
+    "oracle_available": [True],
+    "dex_available": [True],
+    "redeemer_has_pair": [False],
+    "redemption_timestep": [None],
+    "random_seed": [7],
+}

@@ -1,0 +1,7 @@
+scenario,runs,executed_runs,redeemed_runs,failed_runs,failure_reasons,avg_final_target_price,avg_limit_token_price,avg_redeem_token_price,avg_pair_value,avg_execution_value,avg_redemption_value
+downside_execution,1,1,0,0,,5.1031,0.2541,9.7459,10.0,10.0,0.0
+upside_execution,1,1,0,0,,27.3999,0.0014,14.9986,15.0,15.0,0.0
+redemption_before_execution,1,0,1,0,,11.0752,4.4647,5.4353,9.9,0.0,9.9
+oracle_failure,1,0,0,1,oracle_unavailable,9.5,6.8729,3.1271,10.0,0.0,0.0
+dex_liquidity_shortfall,1,0,0,1,insufficient_dex_liquidity,9.5,6.8729,3.1271,10.0,0.0,0.0
+fees_and_slippage,1,1,0,0,,9.5,6.8729,2.9271,9.8,9.603,0.0

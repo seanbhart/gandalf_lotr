@@ -1,0 +1,5 @@
+numpy>=1.26,<3
+pandas>=2,<3
+radcad==0.14.0
+pytest>=8,<9
+typing_extensions>=4

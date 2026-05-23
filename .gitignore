@@ -2,6 +2,8 @@
 .lotr/
 .lotr
 venv/
+.venv/
+.pytest_cache/
 .idea/
 .idea
 .vscode/

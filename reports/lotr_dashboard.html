@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LOTR radCAD Scenario Dashboard</title>
+  <style>
+    body { margin: 0; font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #111827; background: #f8fafc; }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; }
+    h1 { font-size: 30px; margin: 0 0 8px; }
+    h2 { font-size: 18px; margin: 0 0 12px; }
+    .lede { margin: 0 0 28px; color: #4b5563; }
+    .findings, .scenario { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; }
+    .findings { margin-bottom: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+    svg { width: 100%; height: auto; border: 1px solid #e5e7eb; border-radius: 6px; }
+    dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 14px 0 0; }
+    dt { color: #6b7280; font-size: 12px; }
+    dd { margin: 2px 0 0; font-weight: 600; }
+    li { margin: 6px 0; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>LOTR radCAD Scenario Dashboard</h1>
+    <p class="lede">Scenario outputs for Limit Order Token Reserve valuation, execution, redemption, and market-friction edge cases.</p>
+    <section class="findings">
+      <h2>Findings</h2>
+      <ul><li>The valuation invariant holds in the scenario set: Limit Token + Redeem Token equals collateral after configured transfer fees.</li>
+<li>Both lower-limit hedges and higher-limit speculative orders can be represented with the same crossing logic by tracking price direction.</li>
+<li>Oracle and DEX availability are first-order viability risks because a crossed limit can still leave holders with an execution failure state.</li>
+<li>Execution reward and DEX slippage reduce realized execution value directly, while transfer fees reduce the redeemable token-pair value.</li>
+<li>Redemption is an important competing path: if both token halves are reunited before execution, collateral exits and execution should no longer occur for that pair.</li></ul>
+    </section>
+    <section class="grid">
+      
+<section class="scenario">
+  <h2>Downside Execution</h2>
+  
+<svg viewBox="0 0 720 220" role="img" aria-label="downside_execution chart">
+  <rect width="720" height="220" fill="#ffffff" />
+  <line x1="28" y1="192" x2="692" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28" x2="28" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="55.3" x2="692" y2="55.3" stroke="#dc2626" stroke-dasharray="5 5" />
+  <polyline points="28.0,28.0 55.7,33.7 83.3,39.3 111.0,44.6 138.7,49.8 166.3,54.8 194.0,59.6 221.7,64.2 249.3,68.7 277.0,73.0 304.7,77.2 332.3,81.2 360.0,85.1 387.7,88.8 415.3,92.4 443.0,95.9 470.7,99.3 498.3,102.5 526.0,105.6 553.7,108.7 581.3,111.6 609.0,114.4 636.7,117.1 664.3,119.7 692.0,122.3" fill="none" stroke="#2563eb" stroke-width="2" /><polyline points="28.0,192.0 55.7,150.2 83.3,135.4 111.0,116.1 138.7,91.2 166.3,59.6 194.0,83.6 221.7,108.0 249.3,126.3 277.0,140.1 304.7,150.7 332.3,158.9 360.0,165.2 387.7,170.2 415.3,174.1 443.0,177.2 470.7,179.7 498.3,181.7 526.0,183.4 553.7,184.7 581.3,185.8 609.0,186.7 636.7,187.4 664.3,188.0 692.0,188.5" fill="none" stroke="#7c3aed" stroke-width="2" /><polyline points="28.0,55.3 55.7,97.1 83.3,112.0 111.0,131.3 138.7,156.1 166.3,187.8 194.0,163.7 221.7,139.4 249.3,121.1 277.0,107.2 304.7,96.6 332.3,88.4 360.0,82.1 387.7,77.1 415.3,73.2 443.0,70.1 470.7,67.6 498.3,65.6 526.0,64.0 553.7,62.7 581.3,61.6 609.0,60.7 636.7,59.9 664.3,59.3 692.0,58.8" fill="none" stroke="#111827" stroke-width="2" />
+</svg>
+
+  <dl>
+    <div><dt>Executed</dt><dd>1</dd></div>
+    <div><dt>Redeemed</dt><dd>0</dd></div>
+    <div><dt>Failed</dt><dd>0</dd></div>
+    <div><dt>Failure</dt><dd>none</dd></div>
+    <div><dt>Pair Value</dt><dd>10.0</dd></div>
+    <div><dt>Exec Value</dt><dd>10.0</dd></div>
+  </dl>
+</section>
+
+<section class="scenario">
+  <h2>Upside Execution</h2>
+  
+<svg viewBox="0 0 720 220" role="img" aria-label="upside_execution chart">
+  <rect width="720" height="220" fill="#ffffff" />
+  <line x1="28" y1="192" x2="692" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28" x2="28" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="102.2" x2="692" y2="102.2" stroke="#dc2626" stroke-dasharray="5 5" />
+  <polyline points="28.0,120.2 55.7,117.7 83.3,115.1 111.0,112.4 138.7,109.6 166.3,106.7 194.0,103.7 221.7,100.6 249.3,97.4 277.0,94.1 304.7,90.7 332.3,87.1 360.0,83.5 387.7,79.7 415.3,75.7 443.0,71.7 470.7,67.5 498.3,63.1 526.0,58.6 553.7,53.9 581.3,49.1 609.0,44.1 636.7,38.9 664.3,33.5 692.0,28.0" fill="none" stroke="#2563eb" stroke-width="2" /><polyline points="28.0,192.0 55.7,179.0 83.3,174.0 111.0,166.8 138.7,156.3 166.3,140.8 194.0,117.5 221.7,118.5 249.3,142.8 277.0,159.5 304.7,170.8 332.3,178.4 360.0,183.4 387.7,186.7 415.3,188.7 443.0,190.0 470.7,190.8 498.3,191.3 526.0,191.6 553.7,191.8 581.3,191.9 609.0,191.9 636.7,192.0 664.3,192.0 692.0,192.0" fill="none" stroke="#7c3aed" stroke-width="2" /><polyline points="28.0,132.1 55.7,115.2 83.3,120.2 111.0,127.4 138.7,137.9 166.3,153.5 194.0,176.7 221.7,175.7 249.3,151.4 277.0,134.7 304.7,123.4 332.3,115.8 360.0,110.8 387.7,107.5 415.3,105.5 443.0,104.2 470.7,103.4 498.3,102.9 526.0,102.6 553.7,102.4 581.3,102.3 609.0,102.3 636.7,102.3 664.3,102.2 692.0,102.2" fill="none" stroke="#111827" stroke-width="2" />
+</svg>
+
+  <dl>
+    <div><dt>Executed</dt><dd>1</dd></div>
+    <div><dt>Redeemed</dt><dd>0</dd></div>
+    <div><dt>Failed</dt><dd>0</dd></div>
+    <div><dt>Failure</dt><dd>none</dd></div>
+    <div><dt>Pair Value</dt><dd>15.0</dd></div>
+    <div><dt>Exec Value</dt><dd>15.0</dd></div>
+  </dl>
+</section>
+
+<section class="scenario">
+  <h2>Redemption Before Execution</h2>
+  
+<svg viewBox="0 0 720 220" role="img" aria-label="redemption_before_execution chart">
+  <rect width="720" height="220" fill="#ffffff" />
+  <line x1="28" y1="192" x2="692" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28" x2="28" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="55.3" x2="692" y2="55.3" stroke="#dc2626" stroke-dasharray="5 5" />
+  <polyline points="28.0,28.0 69.5,28.8 111.0,29.6 152.5,30.4 194.0,31.3 235.5,32.1 277.0,32.9 318.5,33.7 360.0,34.4 401.5,35.2 443.0,36.0 484.5,36.8 526.0,37.6 567.5,38.3 609.0,39.1 650.5,39.9 692.0,40.6" fill="none" stroke="#2563eb" stroke-width="2" /><polyline points="28.0,192.0 69.5,160.1 111.0,158.6 152.5,157.1 194.0,155.5 235.5,153.9 277.0,152.2 318.5,150.4 360.0,148.6 401.5,146.6 443.0,144.7 484.5,142.6 526.0,140.4 567.5,138.2 609.0,135.9 650.5,133.5 692.0,131.0" fill="none" stroke="#7c3aed" stroke-width="2" /><polyline points="28.0,55.3 69.5,88.6 111.0,90.1 152.5,91.6 194.0,93.2 235.5,94.8 277.0,96.5 318.5,98.3 360.0,100.1 401.5,102.1 443.0,104.0 484.5,106.1 526.0,108.3 567.5,110.5 609.0,112.8 650.5,115.2 692.0,117.7" fill="none" stroke="#111827" stroke-width="2" />
+</svg>
+
+  <dl>
+    <div><dt>Executed</dt><dd>0</dd></div>
+    <div><dt>Redeemed</dt><dd>1</dd></div>
+    <div><dt>Failed</dt><dd>0</dd></div>
+    <div><dt>Failure</dt><dd>none</dd></div>
+    <div><dt>Pair Value</dt><dd>9.9</dd></div>
+    <div><dt>Exec Value</dt><dd>0.0</dd></div>
+  </dl>
+</section>
+
+<section class="scenario">
+  <h2>Oracle Failure</h2>
+  
+<svg viewBox="0 0 720 220" role="img" aria-label="oracle_failure chart">
+  <rect width="720" height="220" fill="#ffffff" />
+  <line x1="28" y1="192" x2="692" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28" x2="28" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28.0" x2="692" y2="28.0" stroke="#dc2626" stroke-dasharray="5 5" />
+  <polyline points="28.0,36.2 692.0,36.2" fill="none" stroke="#2563eb" stroke-width="2" /><polyline points="28.0,192.0 692.0,79.3" fill="none" stroke="#7c3aed" stroke-width="2" /><polyline points="28.0,28.0 692.0,140.7" fill="none" stroke="#111827" stroke-width="2" />
+</svg>
+
+  <dl>
+    <div><dt>Executed</dt><dd>0</dd></div>
+    <div><dt>Redeemed</dt><dd>0</dd></div>
+    <div><dt>Failed</dt><dd>1</dd></div>
+    <div><dt>Failure</dt><dd>oracle_unavailable</dd></div>
+    <div><dt>Pair Value</dt><dd>10.0</dd></div>
+    <div><dt>Exec Value</dt><dd>0.0</dd></div>
+  </dl>
+</section>
+
+<section class="scenario">
+  <h2>Dex Liquidity Shortfall</h2>
+  
+<svg viewBox="0 0 720 220" role="img" aria-label="dex_liquidity_shortfall chart">
+  <rect width="720" height="220" fill="#ffffff" />
+  <line x1="28" y1="192" x2="692" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28" x2="28" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28.0" x2="692" y2="28.0" stroke="#dc2626" stroke-dasharray="5 5" />
+  <polyline points="28.0,36.2 692.0,36.2" fill="none" stroke="#2563eb" stroke-width="2" /><polyline points="28.0,192.0 692.0,79.3" fill="none" stroke="#7c3aed" stroke-width="2" /><polyline points="28.0,28.0 692.0,140.7" fill="none" stroke="#111827" stroke-width="2" />
+</svg>
+
+  <dl>
+    <div><dt>Executed</dt><dd>0</dd></div>
+    <div><dt>Redeemed</dt><dd>0</dd></div>
+    <div><dt>Failed</dt><dd>1</dd></div>
+    <div><dt>Failure</dt><dd>insufficient_dex_liquidity</dd></div>
+    <div><dt>Pair Value</dt><dd>10.0</dd></div>
+    <div><dt>Exec Value</dt><dd>0.0</dd></div>
+  </dl>
+</section>
+
+<section class="scenario">
+  <h2>Fees And Slippage</h2>
+  
+<svg viewBox="0 0 720 220" role="img" aria-label="fees_and_slippage chart">
+  <rect width="720" height="220" fill="#ffffff" />
+  <line x1="28" y1="192" x2="692" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28" x2="28" y2="192" stroke="#d1d5db" />
+  <line x1="28" y1="28.0" x2="692" y2="28.0" stroke="#dc2626" stroke-dasharray="5 5" />
+  <polyline points="28.0,36.2 692.0,36.2" fill="none" stroke="#2563eb" stroke-width="2" /><polyline points="28.0,192.0 692.0,79.3" fill="none" stroke="#7c3aed" stroke-width="2" /><polyline points="28.0,28.0 692.0,144.0" fill="none" stroke="#111827" stroke-width="2" />
+</svg>
+
+  <dl>
+    <div><dt>Executed</dt><dd>1</dd></div>
+    <div><dt>Redeemed</dt><dd>0</dd></div>
+    <div><dt>Failed</dt><dd>0</dd></div>
+    <div><dt>Failure</dt><dd>none</dd></div>
+    <div><dt>Pair Value</dt><dd>9.8</dd></div>
+    <div><dt>Exec Value</dt><dd>9.603</dd></div>
+  </dl>
+</section>
+
+    </section>
+  </main>
+</body>
+</html>
